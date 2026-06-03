@@ -1,0 +1,71 @@
+CUSTOMER PART 
+#################
+
+
+#################
+HOME 
+#################
+
+1. PRODUCTS
+customer -> components -> Home state 
+
+
+#################
+MODEL (AUTH MODEL) 
+#################
+
+1. customer -> components -> auth -> authmodel, login, register
+2. state is manage inside state -> auth
+3. when hitting "/login" route authmodel open with login component 
+4. when hitting "/register" route authmodel open with register component 
+
+#################
+CATEGORY WISE PRODUCTS LISTING
+#################
+
+1. customer -> components -> products
+2. state is manage inside state -> product
+
+
+#################
+PRODUCT DETAILS AND SIMILAR PRODUCTS
+#################
+
+1. customer -> components -> productsDetails
+2. state is manage inside state -> product (both for single product and similar products)
+
+#################
+ADD TO BAG
+#################
+
+1. customer -> components -> cart
+2. state is manage inside state -> cart
+
+#################
+AFTER CHECKOUT
+#################
+
+1. customer -> components -> checkout
+2. hierarchy is manage inside checkout.jsx
+3. at first it check for login or not 
+4. after it ask for delivery address which is manage inside customer -> components -> checkout -> delivery address.jsx . clicking on delivery it generate the order based on the address
+
+5. after it ask for order summary which is manage inside customer -> components -> checkout -> orderSummary.jsx thats contains address card as well as order detail card and get the order item by order id 
+6. state is manage inside the state -> order 
+
+7. after that the payment part which is handle inside the state -> admin -> adminPayment
+
+
+#################
+MY PROFILE
+#################
+
+1. customer -> orders.jsx inside that order card  customer -> ordersCard.jsx
+2. customer -> order-details.jsx inside that order detail card  customer -> ordersDetailCard.jsx
+
+
+
+
+
+
+
