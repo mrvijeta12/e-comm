@@ -21,9 +21,9 @@ import CustomerTable from "./AdminPages/CustomerTable.jsx";
 import OrderTable from "./AdminPages/OrderTable.jsx";
 import ProductsTable from "./AdminPages/ProductsTable.jsx";
 import CreateProduct from "./AdminPages/CreateProduct.jsx";
-import AdminOrderdetail from "./AdminPages/AdminOrderdetail.jsx";
 import UpdateProduct from "./AdminPages/UpdateProduct.jsx";
 import Header from "./AdminPages/Header.jsx";
+import AdminOrderDetail from "./AdminPages/AdminOrderdetail.jsx";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -134,7 +134,7 @@ const Admin = () => {
           <Route path="/products/:productId" element={<UpdateProduct />} />
           <Route
             path="/orders-details/:orderId"
-            element={<AdminOrderdetail />}
+            element={<AdminOrderDetail />}
           />
           <Route path="/products" element={<ProductsTable />} />
         </Routes>

@@ -9,7 +9,7 @@ import AddressCard from "../../../customers/components/AddressCard/AddressCard";
 import { getAdminOrderById } from "../../../State/Admin/AdminOrder/AdminOrderAction";
 import Spinner from "../../../customers/components/SpinnerLoader/Spinner";
 
-const AdminOrderdetail = () => {
+const AdminOrderDetail = () => {
   //   console.log("AdminOrderdetail rendered");
   const dispatch = useDispatch();
   const { orderId } = useParams();
@@ -51,4 +51,4 @@ const AdminOrderdetail = () => {
   );
 };
 
-export default AdminOrderdetail;
+export default AdminOrderDetail;
