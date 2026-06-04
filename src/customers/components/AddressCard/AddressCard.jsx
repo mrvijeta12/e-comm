@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { createOrder } from "../../../State/Order/orderAction";
+import { deleteUserAddress } from "../../../State/Auth/Action";
 
-const AddressCard = ({ address }) => {
+const AddressCard = ({ address, setUpdateAddrId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -14,6 +15,18 @@ const AddressCard = ({ address }) => {
     };
     dispatch(createOrder(orderData));
   };
+
+  function handleDelete(addressId) {
+    dispatch(deleteUserAddress(addressId));
+  }
+
+  function handleEdit(addressId) {
+    navigate(`/address/edit/${addressId}`, {
+      state: {
+        background: location,
+      },
+    });
+  }
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -37,7 +50,7 @@ const AddressCard = ({ address }) => {
         <div className="flex gap-2 mt-4">
           <button
             type="submit"
-            className="uppercase bg-violet-500 text-white text-sm font-semibold p-2 rounded-md"
+            className="uppercase bg-violet-500 text-white text-sm font-semibold p-1.5 rounded-md"
             onClick={() => handleDeliverHere(address)}
           >
             Deliver Here
@@ -45,9 +58,17 @@ const AddressCard = ({ address }) => {
 
           <button
             type="submit"
-            className="uppercase bg-violet-500 text-white text-sm font-semibold p-2 rounded-md"
+            className="uppercase bg-violet-500 text-white text-sm font-semibold p-1.5 rounded-md"
+            onClick={() => handleEdit(address._id)}
           >
             Edit
+          </button>
+          <button
+            type="submit"
+            className="uppercase bg-violet-500 text-white text-sm font-semibold p-1.5 rounded-md"
+            onClick={() => handleDelete(address._id)}
+          >
+            Delete
           </button>
         </div>
       )}

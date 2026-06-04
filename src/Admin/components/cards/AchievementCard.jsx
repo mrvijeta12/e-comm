@@ -25,7 +25,7 @@ const AchievementCard = () => {
   const formatted = total > 1000 ? (total / 1000).toFixed(3) + "k" : total;
 
   return (
-    <div className="flex flex-col w-full h-full bg-[#111F35] text-white p-4 shadow-md rounded-md">
+    <div className="flex flex-col w-full h-full bg-white text-gray-900 p-4 shadow-md rounded-md">
       <div className="mb-4">
         <h3 className=" text-xl">Shop With Trend</h3>
         <h4 className="text-sm font-semibold">Congratulations</h4>

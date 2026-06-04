@@ -13,6 +13,12 @@ import {
   REGISTER_FAILURE,
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
+  UPDATE_ADDRESS_SUCCESS,
+  UPDATE_ADDRESS_FAILURE,
+  UPDATE_ADDRESS_REQUEST,
+  DELETE_ADDRESS_REQUEST,
+  DELETE_ADDRESS_SUCCESS,
+  DELETE_ADDRESS_FAILURE,
 } from "./ActionTypes";
 import { api } from "../../config/apiConfig";
 import { showToast } from "../../customers/components/Toast/ToastAction";
@@ -122,6 +128,7 @@ const getAllUserFailure = (error) => ({
   payload: error,
 });
 
+//! get all user
 export const getAllUsers = () => async (dispatch, getState) => {
   // console.log("api called");
 
@@ -133,6 +140,48 @@ export const getAllUsers = () => async (dispatch, getState) => {
     dispatch(getAllUserSuccess(users));
   } catch (error) {
     dispatch(getAllUserFailure(error.message));
+  }
+};
+
+//! delete  user address
+export const deleteUserAddress = (addressId) => async (dispatch) => {
+  dispatch({ type: DELETE_ADDRESS_REQUEST });
+  try {
+    const response = await api.delete(`/addresses/${addressId}/`);
+    dispatch({
+      type: DELETE_ADDRESS_SUCCESS,
+      payload: addressId,
+    });
+    dispatch(showToast(response.data.message || "Address deleted", "success"));
+  } catch (error) {
+    dispatch({
+      type: DELETE_ADDRESS_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+    dispatch(
+      showToast(response.data.message || "Address delete fail", "error"),
+    );
+  }
+};
+
+//! update  user address
+export const updateUserAddress = (addressId, data) => async (dispatch) => {
+  dispatch({ type: UPDATE_ADDRESS_REQUEST });
+  try {
+    const response = await api.put(`/addresses/${addressId}/`, data);
+    dispatch({
+      type: UPDATE_ADDRESS_SUCCESS,
+      payload: response.data.address,
+    });
+    dispatch(showToast(response.data.message || "Address updated", "success"));
+  } catch (error) {
+    dispatch({
+      type: UPDATE_ADDRESS_FAILURE,
+      payload: error.response?.data?.message || error.message,
+    });
+    dispatch(
+      showToast(response.data.message || "Address update fail", "error"),
+    );
   }
 };
 

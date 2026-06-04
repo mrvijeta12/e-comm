@@ -96,61 +96,74 @@ const OrderTable = () => {
     <div>
       <Card
         sx={{
-          backgroundColor: "#111F35",
-          color: "white",
+          backgroundColor: "#fff",
+          color: "#111827",
+          borderRadius: 2,
+          boxShadow: 1,
         }}
       >
-        <CardHeader title="All Orders" />
+        <CardHeader
+          title="All Orders"
+          sx={{
+            color: "#111827",
+            borderBottom: "1px solid #e5e7eb",
+          }}
+        />
+
         <TableContainer
           component={Paper}
+          elevation={0}
           sx={{
-            backgroundColor: "#111F35",
-            color: "white",
-            // overflowX: "auto",
+            backgroundColor: "#fff",
           }}
         >
           <Table
-            sx={{ minWidth: 650 }}
-            aria-label="simple table"
-            className="text-left"
+            sx={{
+              minWidth: 650,
+              whiteSpace: "nowrap",
+            }}
+            aria-label="all orders table"
           >
-            <TableHead>
+            <TableHead
+              sx={{
+                "& .MuiTableCell-root": {
+                  color: "#111827",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  borderBottom: "1px solid #e5e7eb",
+                },
+              }}
+            >
               <TableRow>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Img
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Title
-                </TableCell>
-
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Total Price
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Discount
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Discounted price
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Quantity
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Payment Status
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Order Status
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  Actions
-                </TableCell>
+                <TableCell align="left">Img</TableCell>
+                <TableCell align="left">Title</TableCell>
+                <TableCell align="left">Total Price</TableCell>
+                <TableCell align="left">Discount</TableCell>
+                <TableCell align="left">Discounted Price</TableCell>
+                <TableCell align="left">Quantity</TableCell>
+                <TableCell align="left">Payment Status</TableCell>
+                <TableCell align="left">Order Status</TableCell>
+                <TableCell align="left">Actions</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+
+            <TableBody
+              sx={{
+                "& .MuiTableCell-root": {
+                  color: "#111827",
+                  borderBottom: "1px solid #f3f4f6",
+                },
+              }}
+            >
               {adminOrders.orders?.map((item) => (
                 <TableRow
                   key={item._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  hover
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#f9fafb",
+                    },
+                  }}
                 >
                   <TableCell align="left">
                     <div className="flex justify-start">
@@ -172,34 +185,33 @@ const OrderTable = () => {
                       </AvatarGroup>
                     </div>
                   </TableCell>
-                  <TableCell align="left" sx={{ color: "white" }}>
+
+                  <TableCell align="left">
                     {item.orderItems
                       ?.map((orderItem) => orderItem.product?.title)
                       .join(", ")}
                   </TableCell>
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {item.totalPrice}
-                  </TableCell>
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {item.discount}
+
+                  <TableCell align="left">₹{item.totalPrice}</TableCell>
+
+                  <TableCell align="left">{item.discount}%</TableCell>
+
+                  <TableCell align="left">
+                    ₹{item.totalDiscountedPrice}
                   </TableCell>
 
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {item.totalDiscountedPrice}
-                  </TableCell>
+                  <TableCell align="left">{item.totalItems}</TableCell>
 
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {item.totalItems}
-                  </TableCell>
                   <TableCell align="left">
                     <span
                       className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${getStatusClass(
-                        item.orderStatus,
+                        item.paymentDetails?.paymentStatus,
                       )}`}
                     >
                       {item.paymentDetails?.paymentStatus}
                     </span>
                   </TableCell>
+
                   <TableCell align="left">
                     <span
                       className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${getStatusClass(
@@ -209,55 +221,72 @@ const OrderTable = () => {
                       {item.orderStatus}
                     </span>
                   </TableCell>
-                  <TableCell>
+
+                  <TableCell align="left">
                     <MoreVertIcon
-                      className="text-violet-500 cursor-pointer"
+                      className="text-violet-500 cursor-pointer hover:text-violet-700"
                       onClick={(e) => handleClick(e, item._id)}
                     />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-              PaperProps={{
-                sx: {
-                  mt: 0.5,
-                  width: "150px",
-
-                  transform: "translateX(-10px)",
-                },
-              }}
-            >
-              <MenuItem onClick={() => handleViewOrder(selectedOrderId)}>
-                View Order
-              </MenuItem>
-              <MenuItem>Place Order</MenuItem>
-              <MenuItem onClick={() => handleConfirmOrder(selectedOrderId)}>
-                Confirm Order
-              </MenuItem>
-              <MenuItem onClick={() => handleShipOrder(selectedOrderId)}>
-                Ship Order
-              </MenuItem>
-              <MenuItem onClick={handleClose}>Cancel Order</MenuItem>
-              <MenuItem
-                onClick={() => handleOutForDeliveryOrder(selectedOrderId)}
-              >
-                Out For Delivery
-              </MenuItem>
-              <MenuItem onClick={() => handleDeliverOrder(selectedOrderId)}>
-                Deliver Order
-              </MenuItem>
-
-              <MenuItem onClick={() => handleDeleteOrder(selectedOrderId)}>
-                Delete
-              </MenuItem>
-            </Menu>
           </Table>
+
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            PaperProps={{
+              sx: {
+                mt: 0.5,
+                width: "180px",
+                borderRadius: 2,
+                boxShadow: 3,
+              },
+            }}
+          >
+            <MenuItem onClick={() => handleViewOrder(selectedOrderId)}>
+              View Order
+            </MenuItem>
+
+            <MenuItem>Place Order</MenuItem>
+
+            <MenuItem onClick={() => handleConfirmOrder(selectedOrderId)}>
+              Confirm Order
+            </MenuItem>
+
+            <MenuItem onClick={() => handleShipOrder(selectedOrderId)}>
+              Ship Order
+            </MenuItem>
+
+            <MenuItem onClick={handleClose}>Cancel Order</MenuItem>
+
+            <MenuItem
+              onClick={() => handleOutForDeliveryOrder(selectedOrderId)}
+            >
+              Out For Delivery
+            </MenuItem>
+
+            <MenuItem onClick={() => handleDeliverOrder(selectedOrderId)}>
+              Deliver Order
+            </MenuItem>
+
+            <MenuItem
+              sx={{ color: "error.main" }}
+              onClick={() => handleDeleteOrder(selectedOrderId)}
+            >
+              Delete
+            </MenuItem>
+          </Menu>
         </TableContainer>
       </Card>
     </div>

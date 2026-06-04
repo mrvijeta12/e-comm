@@ -44,10 +44,12 @@ const CustomerRouters = () => {
       {/* Modal routes */}
       {state?.background &&
         (location.pathname === "/login" ||
-          location.pathname === "/register") && (
+          location.pathname === "/register" ||
+          location.pathname.startsWith("/address/edit/")) && (
           <Routes>
             <Route path="/login" element={<AuthModel />} />
             <Route path="/register" element={<AuthModel />} />
+            <Route path="/address/edit/:addressId" element={<AuthModel />} />
           </Routes>
         )}
 

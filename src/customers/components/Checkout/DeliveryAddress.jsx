@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AddressCard from "../AddressCard/AddressCard";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../../State/Order/orderAction";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 const DeliveryAddress = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { orders } = useSelector((store) => store);
+  const auth = useSelector((store) => store.auth);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,16 +26,12 @@ const DeliveryAddress = () => {
     const orderData = { address, navigate };
     dispatch(createOrder(orderData));
   }
-  const { orders } = useSelector((store) => store);
-  // console.log("order", orders);
-  const auth = useSelector((store) => store.auth);
-  // console.log("auth", auth);
 
   return (
     <div className="grid grid-cols-3 bg-white  p-2 h-[25rem]">
       <div className="col-span-1 overflow-y-auto  space-y-2 w-full ">
         {auth.user?.address.map((item) => (
-          <AddressCard key={item} address={item} />
+          <AddressCard key={item._id} address={item} />
         ))}
       </div>
 

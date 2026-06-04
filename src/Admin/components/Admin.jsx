@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { adminNavbarData } from "./AdminNavbar/AdminNavbarData";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import {
@@ -23,12 +23,20 @@ import ProductsTable from "./AdminPages/ProductsTable.jsx";
 import CreateProduct from "./AdminPages/CreateProduct.jsx";
 import AdminOrderdetail from "./AdminPages/AdminOrderdetail.jsx";
 import UpdateProduct from "./AdminPages/UpdateProduct.jsx";
+import Header from "./AdminPages/Header.jsx";
 
 const Admin = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-  const [sideBarVisible, setSideBarVisible] = useState(false);
+  const [sideBarVisible, setSideBarVisible] = useState(true);
+
+  function hideDrawer() {
+    setSideBarVisible(!sideBarVisible);
+  }
+
+  // console.log(sideBarVisible);
+
   const drawer = (
     <Box
       sx={{
@@ -37,21 +45,48 @@ const Admin = () => {
         flexDirection: "column",
         justifyContent: "space-between",
         height: "100%",
-        width: "250px",
+        width: "260px",
+        py: 2,
       }}
     >
       {/* {isLargeScreen && <Toolbar />} */}
       <List>
-        {adminNavbarData?.map((item, index) => (
-          <ListItem
-            key={item.name}
-            onClick={() => navigate(item.path)}
-            disablePadding
-          >
-            <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText>{item.label}</ListItemText>
-            </ListItemButton>
+        {adminNavbarData.map((item) => (
+          <ListItem key={item.name} disablePadding>
+            <NavLink
+              to={item.path}
+              end={item.path === "/admin"}
+              className="w-full"
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              {({ isActive }) => (
+                <ListItemButton
+                  sx={{
+                    mx: 1,
+                    my: 0.5,
+                    borderRadius: "10px",
+                    ...(isActive && {
+                      backgroundColor: "#ede9fe",
+                      color: "#7c3aed",
+                      borderLeft: "4px solid #7c3aed",
+                    }),
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      color: isActive ? "#7c3aed" : "#6b7280",
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+
+                  <ListItemText primary={item.label} />
+                </ListItemButton>
+              )}
+            </NavLink>
           </ListItem>
         ))}
       </List>
@@ -69,16 +104,28 @@ const Admin = () => {
   );
 
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex h-screen overflow-hidden bg-gray-100 p-4 gap-4">
       <CssBaseline />
 
-      {/* Drawer */}
-      <div className="w-[260px] h-screen sticky top-0 border border-r-gray-300">
-        {drawer}
+      {/* Sidebar */}
+      <div
+        className={`
+        ${sideBarVisible ? "w-[260px]" : "w-0"}
+        flex-shrink-0
+        overflow-hidden
+        transition-all
+        duration-300
+      `}
+      >
+        <div className="h-full bg-white rounded-xl shadow-sm border border-gray-200">
+          {drawer}
+        </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-grow p-4 border border-green-500 overflow-y-auto">
+      <div className="flex-1 min-w-0 overflow-y-auto bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+        <Header hideDrawer={hideDrawer} />
+
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/product/create" element={<CreateProduct />} />
@@ -89,7 +136,6 @@ const Admin = () => {
             path="/orders-details/:orderId"
             element={<AdminOrderdetail />}
           />
-
           <Route path="/products" element={<ProductsTable />} />
         </Routes>
       </div>

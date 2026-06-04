@@ -8,20 +8,20 @@ import DashboardProductTable from "../../view/DashboardProductTable.jsx";
 const Dashboard = () => {
   return (
     <div>
-      <div className="grid grid-cols-3  gap-2  items-stretch mb-5">
-        <div className="col-span-1 ">
+      <div className="grid grid-cols-3  gap-4  items-stretch mb-5">
+        <div className="lg:col-span-1 col-span-3 ">
           <AchievementCard />
         </div>
-        <div className="col-span-2 ">
+        <div className="lg:col-span-2 col-span-3 ">
           <MonthlyOverview />
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-5 h-[400px]">
-        <div className="h-full overflow-auto ">
+      <div className="grid grid-cols-2 gap-4 mb-5 overflow-auto ">
+        <div className="h-full  lg:col-span-1 col-span-2 max-h-[400px] ">
           <DashboardRecentOrderTable />
         </div>
 
-        <div className="h-full overflow-auto ">
+        <div className="h-full  lg:col-span-1 col-span-2 max-h-[400px] ">
           <DashboardProductTable />
         </div>
       </div>

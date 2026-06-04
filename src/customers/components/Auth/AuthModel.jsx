@@ -5,6 +5,7 @@ import Login from "./Login";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from "../../../assets/zentric_logo.png";
+import UpdateAddress from "../updateAddress/UpdateAddress";
 
 const style = {
   position: "absolute",
@@ -24,10 +25,13 @@ const AuthModel = () => {
   const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (auth?.user) {
+    const isAuth =
+      location.pathname === "/login" || location.pathname === "/register";
+
+    if (isAuth && auth?.user) {
       handleClose();
     }
-  }, [auth?.user]);
+  }, [auth?.user, location.pathname]);
 
   const handleClose = () => {
     navigate(location.state?.background?.pathname || "/", {
@@ -48,6 +52,7 @@ const AuthModel = () => {
           </div>
           {location.pathname === "/login" && <Login />}
           {location.pathname === "/register" && <Register />}
+          {location.pathname.startsWith("/address/edit/") && <UpdateAddress />}
         </Box>
       </Modal>
     </div>

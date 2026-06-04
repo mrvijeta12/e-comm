@@ -37,6 +37,12 @@ const Orders = () => {
       ? userOrder
       : userOrder.filter((order) => category.includes(order.orderStatus));
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [filterOrders]);
   return (
     <div className="min-h-screen">
       {orders.isLoading ? (

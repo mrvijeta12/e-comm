@@ -61,55 +61,68 @@ const ProductsTable = () => {
   return (
     <Card
       sx={{
-        backgroundColor: "#111F35",
-        color: "white",
+        backgroundColor: "#fff",
+        color: "#111827",
+        borderRadius: 2,
+        boxShadow: 1,
       }}
     >
-      <CardHeader title="All Products" />
+      <CardHeader
+        title="All Products"
+        sx={{
+          color: "#111827",
+          borderBottom: "1px solid #e5e7eb",
+        }}
+      />
+
       <TableContainer
         component={Paper}
+        elevation={0}
         sx={{
-          backgroundColor: "#111F35",
-          color: "white",
+          backgroundColor: "#fff",
         }}
       >
-        <Table
-          sx={{ minWidth: 650 }}
-          aria-label="simple table"
-          className="text-left"
-        >
-          <TableHead>
+        <Table sx={{ minWidth: 650 }} aria-label="all products table">
+          <TableHead
+            sx={{
+              "& .MuiTableCell-root": {
+                color: "#111827",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                borderBottom: "1px solid #e5e7eb",
+              },
+            }}
+          >
             <TableRow>
-              <TableCell align="left" sx={{ color: "white" }}>
-                Img
-              </TableCell>
-
-              <TableCell align="left" sx={{ color: "white" }}>
-                Title
-              </TableCell>
-              <TableCell align="left" sx={{ color: "white" }}>
-                Color
-              </TableCell>
-              <TableCell align="left" sx={{ color: "white" }}>
-                Category
-              </TableCell>
-              <TableCell align="left" sx={{ color: "white" }}>
-                Price
-              </TableCell>
-              <TableCell align="left" sx={{ color: "white" }}>
-                Quantity
-              </TableCell>
-              <TableCell align="left" sx={{ color: "white" }}>
-                Delete
-              </TableCell>
+              <TableCell align="left">Img</TableCell>
+              <TableCell align="left">Title</TableCell>
+              <TableCell align="left">Color</TableCell>
+              <TableCell align="left">Category</TableCell>
+              <TableCell align="left">Price</TableCell>
+              <TableCell align="left">Quantity</TableCell>
+              <TableCell align="left">Delete</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+
+          <TableBody
+            sx={{
+              "& .MuiTableCell-root": {
+                color: "#111827",
+                borderBottom: "1px solid #f3f4f6",
+              },
+            }}
+          >
             {adminProducts.adminProducts?.content?.map((item) => (
               <TableRow
                 key={item._id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                hover
                 onClick={() => handleEdit(item._id)}
+                sx={{
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: "#f9fafb",
+                  },
+                }}
               >
                 <TableCell align="left">
                   <Avatar
@@ -119,31 +132,29 @@ const ProductsTable = () => {
                       height: 40,
                       "& img": {
                         objectFit: "cover",
-                        objectPosition: "top", // 👈 key line
+                        objectPosition: "top",
                       },
                     }}
                   />
                 </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.title}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.color}
-                </TableCell>
 
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.category?.name}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.price}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.quantity}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
+                <TableCell align="left">{item.title}</TableCell>
+
+                <TableCell align="left">{item.color}</TableCell>
+
+                <TableCell align="left">{item.category?.name}</TableCell>
+
+                <TableCell align="left">₹{item.price}</TableCell>
+
+                <TableCell align="left">{item.quantity}</TableCell>
+
+                <TableCell align="left">
                   <DeleteSweepIcon
-                    className="cursor-pointer text-violet-500"
-                    onClick={() => handleDelete(item._id)}
+                    className="cursor-pointer text-red-500 hover:text-red-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(item._id);
+                    }}
                   />
                 </TableCell>
               </TableRow>
@@ -151,8 +162,9 @@ const ProductsTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* //! pagination  */}
-      <section className="w-full px=[3.6rem]">
+
+      {/* Pagination */}
+      <section className="w-full">
         <div className="px-4 py-5 flex justify-center">
           <Pagination
             color="secondary"

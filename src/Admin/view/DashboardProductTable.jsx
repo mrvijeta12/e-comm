@@ -44,104 +44,71 @@ const DashboardProductTable = () => {
   return (
     <Card
       sx={{
-        backgroundColor: "#111F35",
-        color: "white",
+        backgroundColor: "#fff",
+        color: "#111827",
         height: "100%",
+        borderRadius: 2,
+        boxShadow: 1,
       }}
     >
-      <CardHeader title="Recent Products" />
+      <CardHeader
+        title="Recent Products"
+        sx={{
+          color: "#111827",
+          borderBottom: "1px solid #e5e7eb",
+        }}
+      />
+
       <TableContainer
         component={Paper}
+        elevation={0}
         sx={{
-          backgroundColor: "#111F35",
-          color: "white",
-          // border: "2px solid white",
+          backgroundColor: "#fff",
           overflowX: "auto",
           overflowY: "auto",
           width: "100%",
           height: "100%",
-          paddingBottom: "50px",
+          pb: 5,
         }}
       >
-        <Table
-          sx={{ minWidth: 650 }}
-          aria-label="simple table"
-          className="text-left"
-        >
-          <TableHead>
+        <Table sx={{ minWidth: 650 }} aria-label="recent products table">
+          <TableHead
+            sx={{
+              "& .MuiTableCell-root": {
+                color: "#111827",
+                fontWeight: 600,
+                textTransform: "uppercase",
+                borderBottom: "1px solid #e5e7eb",
+              },
+            }}
+          >
             <TableRow>
-              <TableCell
-                align="left"
-                sx={{
-                  color: "white",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Img
-              </TableCell>
-
-              <TableCell
-                align="left"
-                sx={{
-                  color: "white",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Title
-              </TableCell>
-
-              <TableCell
-                align="left"
-                sx={{
-                  color: "white",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Color
-              </TableCell>
-
-              <TableCell
-                align="left"
-                sx={{
-                  color: "white",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Category
-              </TableCell>
-
-              <TableCell
-                align="left"
-                sx={{
-                  color: "white",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Price
-              </TableCell>
-
-              <TableCell
-                align="left"
-                sx={{
-                  color: "white",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                }}
-              >
-                Quantity
-              </TableCell>
+              <TableCell align="left">Img</TableCell>
+              <TableCell align="left">Title</TableCell>
+              <TableCell align="left">Color</TableCell>
+              <TableCell align="left">Category</TableCell>
+              <TableCell align="left">Price</TableCell>
+              <TableCell align="left">Quantity</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+
+          <TableBody
+            sx={{
+              "& .MuiTableCell-root": {
+                color: "#111827",
+                borderBottom: "1px solid #f3f4f6",
+              },
+            }}
+          >
             {adminProducts.adminProducts?.content?.slice(0, 10).map((item) => (
               <TableRow
                 key={item._id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                hover
+                sx={{
+                  "&:hover": {
+                    backgroundColor: "#f9fafb",
+                  },
+                }}
               >
                 <TableCell align="left">
                   <Avatar
@@ -151,27 +118,21 @@ const DashboardProductTable = () => {
                       height: 40,
                       "& img": {
                         objectFit: "cover",
-                        objectPosition: "top", // 👈 key line
+                        objectPosition: "top",
                       },
                     }}
                   />
                 </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.title}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.color}
-                </TableCell>
 
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.category?.name}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.price}
-                </TableCell>
-                <TableCell align="left" sx={{ color: "white" }}>
-                  {item.quantity}
-                </TableCell>
+                <TableCell align="left">{item.title}</TableCell>
+
+                <TableCell align="left">{item.color}</TableCell>
+
+                <TableCell align="left">{item.category?.name}</TableCell>
+
+                <TableCell align="left">₹{item.price}</TableCell>
+
+                <TableCell align="left">{item.quantity}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -26,19 +26,26 @@ const CustomerTable = () => {
     <div className="h-full">
       <Card
         sx={{
-          backgroundColor: "#111F35",
-          color: "white",
+          backgroundColor: "#fff",
+          color: "#111827",
           height: "100%",
-          // border: "2px solid red",
+          borderRadius: 2,
+          boxShadow: 1,
         }}
       >
-        <CardHeader title="All Customers" />
+        <CardHeader
+          title="All Customers"
+          sx={{
+            color: "#111827",
+            borderBottom: "1px solid #e5e7eb",
+          }}
+        />
+
         <TableContainer
           component={Paper}
+          elevation={0}
           sx={{
-            backgroundColor: "#111F35",
-            color: "white",
-            // border: "2px solid white",
+            backgroundColor: "#fff",
             overflowX: "auto",
             overflowY: "auto",
             width: "100%",
@@ -51,91 +58,59 @@ const CustomerTable = () => {
               minWidth: 650,
               whiteSpace: "nowrap",
             }}
-            aria-label="simple table"
-            className="text-left"
+            aria-label="customers table"
           >
-            <TableHead>
+            <TableHead
+              sx={{
+                "& .MuiTableCell-root": {
+                  color: "#111827",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  borderBottom: "1px solid #e5e7eb",
+                },
+              }}
+            >
               <TableRow>
-                {/* <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Img
-                </TableCell> */}
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Name
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Email
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Role
-                </TableCell>
+                <TableCell align="left">Name</TableCell>
+                <TableCell align="left">Email</TableCell>
+                <TableCell align="left">Role</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+
+            <TableBody
+              sx={{
+                "& .MuiTableCell-root": {
+                  color: "#111827",
+                  borderBottom: "1px solid #f3f4f6",
+                },
+              }}
+            >
               {users?.map((user) => (
                 <TableRow
                   key={user._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  hover
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#f9fafb",
+                    },
+                  }}
                 >
-                  {/* <TableCell align="left">
-                    <div className="flex justify-start">
-                      <AvatarGroup max={4}>
-                        {item.orderItems?.map((orderItem) => (
-                          <Avatar
-                            src={orderItem.product?.imageUrl}
-                            key={orderItem._id}
-                            sx={{
-                              width: 40,
-                              height: 40,
-                              "& img": {
-                                objectFit: "cover",
-                                objectPosition: "top",
-                              },
-                            }}
-                          />
-                        ))}
-                      </AvatarGroup>
-                    </div>
-                  </TableCell> */}
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {user?.firstName}
+                  <TableCell align="left">
+                    {`${user?.firstName || ""} ${user?.lastName || ""}`}
                   </TableCell>
 
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {user?.email}
-                  </TableCell>
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {user?.role}
+                  <TableCell align="left">{user?.email}</TableCell>
+
+                  <TableCell align="left">
+                    <span
+                      className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${
+                        user?.role === "ADMIN"
+                          ? "bg-purple-100 text-purple-700"
+                          : "bg-blue-100 text-blue-700"
+                      }`}
+                    >
+                      {user?.role}
+                    </span>
                   </TableCell>
                 </TableRow>
               ))}

@@ -59,7 +59,7 @@ const MonthlyOverview = () => {
   const adminProducts = useSelector((store) => store.adminProducts);
   const adminOrders = useSelector((store) => store.adminOrders);
   const auth = useSelector((store) => store.auth);
-  console.log("adminProducts", adminProducts);
+  // console.log("adminProducts", adminProducts);
   const total = useMemo(() => {
     return adminOrders.orders?.reduce(
       (acc, curr) => acc + curr.totalDiscountedPrice,
@@ -94,7 +94,7 @@ const MonthlyOverview = () => {
   // console.log(formatted);
 
   return (
-    <div className="flex flex-col w-full h-full bg-[#111F35] text-white  p-4 shadow-md rounded-md">
+    <div className="flex flex-col w-full h-full bg-white text-gray-900  p-4 shadow-md rounded-md">
       <div className="mb-8 flex justify-between">
         <div>
           <h3 className=" text-xl mb-3">Monthly Overview</h3>

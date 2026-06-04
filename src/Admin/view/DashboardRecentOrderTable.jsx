@@ -88,24 +88,31 @@ const DashboardRecentOrderTable = () => {
     <div className="h-full">
       <Card
         sx={{
-          backgroundColor: "#111F35",
-          color: "white",
+          backgroundColor: "#fff",
+          color: "#111827",
           height: "100%",
-          // border: "2px solid red",
+          borderRadius: 2,
+          boxShadow: 1,
         }}
       >
-        <CardHeader title="Recent Orders" />
+        <CardHeader
+          title="Recent Orders"
+          sx={{
+            color: "#111827",
+            borderBottom: "1px solid #e5e7eb",
+          }}
+        />
+
         <TableContainer
           component={Paper}
+          elevation={0}
           sx={{
-            backgroundColor: "#111F35",
-            color: "white",
-            // border: "2px solid white",
+            backgroundColor: "#fff",
             overflowX: "auto",
             overflowY: "auto",
             width: "100%",
             height: "100%",
-            paddingBottom: "50px",
+            pb: 5,
           }}
         >
           <Table
@@ -113,83 +120,45 @@ const DashboardRecentOrderTable = () => {
               minWidth: 650,
               whiteSpace: "nowrap",
             }}
-            aria-label="simple table"
-            className="text-left"
+            aria-label="recent orders table"
           >
-            <TableHead>
+            <TableHead
+              sx={{
+                "& .MuiTableCell-root": {
+                  color: "#111827",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  borderBottom: "1px solid #e5e7eb",
+                },
+              }}
+            >
               <TableRow>
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Img
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Title
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Discounted Price
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Quantity
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Payment Status
-                </TableCell>
-
-                <TableCell
-                  align="left"
-                  sx={{
-                    color: "white",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Order Status
-                </TableCell>
+                <TableCell align="left">Img</TableCell>
+                <TableCell align="left">Title</TableCell>
+                <TableCell align="left">Discounted Price</TableCell>
+                <TableCell align="left">Quantity</TableCell>
+                <TableCell align="left">Payment Status</TableCell>
+                <TableCell align="left">Order Status</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+
+            <TableBody
+              sx={{
+                "& .MuiTableCell-root": {
+                  color: "#111827",
+                  borderBottom: "1px solid #f3f4f6",
+                },
+              }}
+            >
               {adminOrders.orders?.slice(0, 10).map((item) => (
                 <TableRow
                   key={item._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  hover
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#f9fafb",
+                    },
+                  }}
                 >
                   <TableCell align="left">
                     <div className="flex justify-start">
@@ -211,28 +180,29 @@ const DashboardRecentOrderTable = () => {
                       </AvatarGroup>
                     </div>
                   </TableCell>
-                  <TableCell align="left" sx={{ color: "white" }}>
+
+                  <TableCell align="left">
                     {item.orderItems
                       ?.map((orderItem) => orderItem.product?.title)
                       .join(", ")}
                   </TableCell>
 
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {item.totalDiscountedPrice}
+                  <TableCell align="left">
+                    ₹{item.totalDiscountedPrice}
                   </TableCell>
-                  <TableCell align="left" sx={{ color: "white" }}>
-                    {item.totalItems}
-                  </TableCell>
+
+                  <TableCell align="left">{item.totalItems}</TableCell>
 
                   <TableCell align="left">
                     <span
                       className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${getStatusClass(
-                        item.orderStatus,
+                        item.paymentDetails?.paymentStatus,
                       )}`}
                     >
                       {item.paymentDetails?.paymentStatus}
                     </span>
                   </TableCell>
+
                   <TableCell align="left">
                     <span
                       className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full ${getStatusClass(
