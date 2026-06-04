@@ -23,7 +23,7 @@ import ProductsTable from "./AdminPages/ProductsTable.jsx";
 import CreateProduct from "./AdminPages/CreateProduct.jsx";
 import UpdateProduct from "./AdminPages/UpdateProduct.jsx";
 import Header from "./AdminPages/Header.jsx";
-import AdminOrderDetail from "./AdminPages/AdminOrderdetail.jsx";
+import AdminOrderDetail from "./AdminPages/AdminOrderDetail.jsx";
 
 const Admin = () => {
   const navigate = useNavigate();
