@@ -6,7 +6,7 @@ const Toast = ({ msg, delay = 1000, type = "success" }) => {
   const [progress, setProgress] = useState(100);
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
-  console.log("showToast", showToast);
+  // console.log("showToast", showToast);
 
   useEffect(() => {
     // 1. Reset component state whenever the effect re-runs

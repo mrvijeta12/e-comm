@@ -15,7 +15,8 @@ const steps = ["Login", "Delivery Address", "Order Summary", "Payment"];
 
 function Checkout() {
   const { auth } = useSelector((store) => store);
-  const isAuthenticated = auth?.user || localStorage.getItem("token");
+  // const isAuthenticated = auth?.user || localStorage.getItem("token");
+  const isAuthenticated = auth?.user;
 
   const location = useLocation();
   const navigate = useNavigate();

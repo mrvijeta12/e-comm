@@ -40,9 +40,9 @@ export const register = (userData) => async (dispatch) => {
     // console.log("user token", user.token);
     // console.log("user ", user);
 
-    if (user) {
-      localStorage.setItem("token", user.token);
-    }
+    // if (user) {
+    //   localStorage.setItem("token", user.token);
+    // }
     dispatch(
       registerSuccess({
         token: user.token,
@@ -69,9 +69,9 @@ export const login = (userData) => async (dispatch) => {
     const user = response.data;
     // console.log("user", user);
 
-    if (user) {
-      localStorage.setItem("token", user.token);
-    }
+    // if (user) {
+    //   localStorage.setItem("token", user.token);
+    // }
     dispatch(
       loginSuccess({
         token: user.token,

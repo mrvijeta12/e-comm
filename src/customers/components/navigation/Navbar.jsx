@@ -27,7 +27,7 @@ import AuthModel from "../Auth/AuthModel";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../State/Auth/Action";
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 // console.log(token);
 
 const Navbar = () => {
@@ -400,7 +400,7 @@ const Navbar = () => {
                       </ul>
                     )}
                   </div>
-                ) : !token ? (
+                ) : !auth.user ? (
                   <div className=" flex flex-1 lg:items-center lg:justify-end lg:space-x-6">
                     <button
                       onClick={handleOpen}

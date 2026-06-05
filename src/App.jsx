@@ -17,12 +17,16 @@ import ToastContainer from "./customers/components/Toast/ToastContainer";
 
 const App = () => {
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     dispatch(getUser());
+  //   }
+  // }, []);
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      dispatch(getUser());
-    }
-  }, []);
+    dispatch(getUser());
+  }, [dispatch]);
   return (
     <div>
       <ToastContainer />
